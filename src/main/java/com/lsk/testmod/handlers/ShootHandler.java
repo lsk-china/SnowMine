@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @Mod.EventBusSubscriber
@@ -28,8 +29,12 @@ public class ShootHandler {
 	 	1 1 1 1 1
 	 	1 1 1 1 1
 	 */
+	private static Date lastDoneTime = new Date();
 	@SubscribeEvent
 	public static void onProjectileImpact(ThrowableImpactEvent event){
+		if((new Date().getTime() - lastDoneTime.getTime()) < 1000){
+			return;
+		}
 		Entity entity = event.getEntity();
 		String entityName = entity.getName();
 		if (entityName.equals("Snowball")){
@@ -39,6 +44,7 @@ public class ShootHandler {
 			getBlocks(hitLocation,event.getRayTraceResult().sideHit);
 
 		}
+		lastDoneTime = new Date();
 	}
 	private static List<BlockPos> getBlocks(Vec3d centre, EnumFacing side){
 		double d1 = centre.x;

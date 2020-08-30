@@ -20,7 +20,7 @@ public class CollectionUtil {
 		}else{
 			throw new RuntimeException(new UnsupportedOperationException("Unsupported collection!"));
 		}
-		builder.deleteCharAt(builder.length());
+		builder.deleteCharAt(builder.length()-1);
 		System.out.println(builder.toString());
 	}
 }
